@@ -212,7 +212,6 @@
   </div>
 
   <div id="error-bar"></div>
-  <div id="debug-panel" style="display:none;background:#1a1f2e;border:1px solid #f0883e;border-radius:8px;padding:1rem;margin-bottom:1rem;font-size:.78rem;color:#e8eaf0;line-height:1.8;word-break:break-all"></div>
 
   <!-- FILTRI GLOBALI -->
   <div class="filters">
@@ -443,14 +442,6 @@ async function loadSheetData() {
   if (!data.values) throw new Error('Nessun dato nel foglio. Controlla sheetId e sheetName.');
 
   const [headers, ...rows] = data.values;
-
-  // ── DEBUG: mostra intestazioni e prima riga letta ──
-  const dbg = document.getElementById('debug-panel');
-  if (dbg) {
-    const primaRiga = rows[0] || [];
-    dbg.innerHTML = `
-      <b>Intestazioni rilevate (${headers.length} colonne):</b><br>
-      ${headers.map((h,i) => `[${i}] <b>${h}</b>`).join(' &nbsp;|&nbsp; ')}
       <br><br>
       <b>Prima riga dati:</b><br>
       ${headers.map((h,i) => `<b>${h}</b>: ${primaRiga[i] ?? '\u2014'}`).join(' &nbsp;|&nbsp; ')}
@@ -469,12 +460,6 @@ async function loadSheetData() {
   const iCat = col('categoria');
   const iMes = col('mese');
   const iAnn = col('anno');
-
-  // ── DEBUG: mostra indici colonne trovati ──
-  if (dbg) {
-    dbg.innerHTML += `
-      <br><b>Indici colonne trovati:</b>
-      tipo=${iT} | importo=${iImp} | gruppo=${iGrp} | categoria=${iCat} | mese=${iMes} | anno=${iAnn}
       <br><small style="color:#f0883e">(un valore -1 significa che quella colonna non è stata trovata)</small>
     `;
   }
@@ -490,13 +475,6 @@ async function loadSheetData() {
       anno:      parseInt(r[iAnn] || '0'),
     }))
     .filter(r => r.anno > 0 && r.importo > 0);
-
-  // ── DEBUG: mostra quante righe valide dopo il parsing ──
-  if (dbg) {
-    dbg.innerHTML += `<br><b>Righe valide dopo parsing:</b> ${RAW.length}`;
-    if (RAW.length > 0) {
-      dbg.innerHTML += `<br><b>Primo record parsato:</b> ${JSON.stringify(RAW[0])}`;
-    }
   }
 }
 
