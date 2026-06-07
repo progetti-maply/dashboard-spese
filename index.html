@@ -434,7 +434,7 @@ async function getAccessToken() {
 /* ── Leggi Google Sheet ──────────────────────────── */
 async function loadSheetData() {
   const token = await getAccessToken();
-  const range  = encodeURIComponent(`${CONFIG.sheetName}!A:K`);
+  const range  = encodeURIComponent(`${CONFIG.sheetName}!A:Z`);
   const url    = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.sheetId}/values/${range}`;
 
   const res  = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
@@ -696,4 +696,3 @@ initAuth0().catch(e => {
 </script>
 </body>
 </html>
-
