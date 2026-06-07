@@ -396,11 +396,13 @@ async function getAccessToken() {
 
   const unsigned = b64(header) + '.' + b64(payload);
 
-  // importa chiave RSA
+  // importa chiave PKCS8 (formato standard Google Service Account)
   const pem = CONFIG.serviceAccountKey
+    .replace(/-----BEGIN PRIVATE KEY-----/, '')
+    .replace(/-----END PRIVATE KEY-----/, '')
     .replace(/-----BEGIN RSA PRIVATE KEY-----/, '')
     .replace(/-----END RSA PRIVATE KEY-----/, '')
-    .replace(/\n/g, '').trim();
+    .replace(/\s+/g, '').trim();
 
   const binaryDer = Uint8Array.from(atob(pem), c => c.charCodeAt(0));
   const key = await crypto.subtle.importKey(
@@ -694,3 +696,4 @@ initAuth0().catch(e => {
 </script>
 </body>
 </html>
+
