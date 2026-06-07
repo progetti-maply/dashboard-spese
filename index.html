@@ -442,11 +442,7 @@ async function loadSheetData() {
   if (!data.values) throw new Error('Nessun dato nel foglio. Controlla sheetId e sheetName.');
 
   const [headers, ...rows] = data.values;
-      <br><br>
-      <b>Prima riga dati:</b><br>
       ${headers.map((h,i) => `<b>${h}</b>: ${primaRiga[i] ?? '\u2014'}`).join(' &nbsp;|&nbsp; ')}
-      <br><br>
-      <b>Righe totali lette (esclusa intestazione):</b> ${rows.length}
     `;
     dbg.style.display = 'block';
   }
@@ -460,7 +456,6 @@ async function loadSheetData() {
   const iCat = col('categoria');
   const iMes = col('mese');
   const iAnn = col('anno');
-      <br><small style="color:#f0883e">(un valore -1 significa che quella colonna non è stata trovata)</small>
     `;
   }
 
