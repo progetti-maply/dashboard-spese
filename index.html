@@ -169,7 +169,8 @@ async function initAuth0() {
     document.getElementById('user-email').textContent = user.email || '';
     showLoadingThenDash();
   } else {
-    document.getElementById('auth-screen').style.display = 'flex';
+    // Vai direttamente al login senza mostrare la schermata intermedia
+    await auth0Client.loginWithRedirect();
   }
 }
 
